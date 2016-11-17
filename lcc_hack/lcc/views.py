@@ -18,11 +18,11 @@ def index(request):
             )
             if lcc.sub_class_start is not None:
                 query = query.filter(
-                    sub_class_start__gte=lcc.sub_class_start,
+                    sub_class_start__lte=lcc.sub_class_start,
                 )
             if lcc.sub_class_end is not None:
                 query = query.filter(
-                    sub_class_end__lte=lcc.sub_class_end,
+                    sub_class_end__gte=lcc.sub_class_end,
                 )
             lcc_list = query.all()
 

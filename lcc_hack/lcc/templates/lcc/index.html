@@ -1,7 +1,25 @@
-<form action='/search/' method='GET'> <input name='lcc' value='{{lcc_query}}' /> <button>szukaj</button> </form> <br/>
-<form action='/add_lcc/' method='POST'> <input name='lcc' /> <input name='regal' /> <button>dodaj</button> </form> <br/>
-<ul>
-    {% for lcc in lcc_list %}
-    <li>{{lcc.value}} <strong> REGAŁ:  {{lcc.regal}}</strong></li>
-    {% endfor %}
-</ul>
+<style>
+    body {font-family: Arial; background-color: #0798c3; color: #022c53;}
+    label {width: 100px; display: block; float: left;}
+    button {border: 1px solid #022c52; background-color: #1d3f5f; color: #b8cbdc;}
+    input {color: #002c52; background-color: #a7b9ca; border: 1px solid #002c52;}
+    ul.lcc-list { display: block; margin: auto; }
+    ul.lcc-list li {display: block;}
+    div.main {width: 400px; margin: auto; height: 100%}
+</style>
+<div class='main'>
+    <form action='/search/' method='GET'>
+        <h3>Wpisz Kod</h3>
+        <input name='lcc' value='{{lcc_query}}' /> <button>Szukaj</button> </form> <br/>
+    <ul class='lcc-list'>
+        {% for lcc in lcc_list %}
+        <li>{{lcc.value}} <strong> REGAŁ:  {{lcc.regal}}</strong></li>
+        {% endfor %}
+    </ul>
+    <form action='/add_lcc/' method='POST'>
+        <h3>Dodaj kod</h3>
+        <label>Kod</label> <input name='lcc' /> <br /> 
+        <label>Regał</label> <input name='regal' /> <br />
+        <button>Dodaj</button>
+    </form> <br/>
+</div>
