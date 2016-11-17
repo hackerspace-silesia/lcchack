@@ -64,4 +64,4 @@ class LccData(object):
     def parse_sub_class(subclass):
         left_value, delimeter, right_value = subclass.partition('.')
         value = '{}{:<05}'.format(left_value, right_value)
-        return int(value, 36)
+        return int(value)

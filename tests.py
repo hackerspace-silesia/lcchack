@@ -7,23 +7,23 @@ def test_parse_main_class_raw_compare():
 
 
 def test_parse_sub_class_raw_compare():
-    value = LccData.parse_sub_class('A1')
-    assert value == 10 * (36 ** 6) + 1 * (36 ** 5)
+    value = LccData.parse_sub_class('10')
+    assert value == 1000000
 
 
 def test_parse_sub_class():
-    value = LccData.parse_sub_class('HQ')
-    assert value == int('HQ00000', 36)
+    value = LccData.parse_sub_class('5')
+    assert value == int('500000', 10)
 
 
 def test_parse_subclass_with_subclass():
     value = LccData.parse_sub_class('767')
-    assert value == int('76700000', 36)
+    assert value == int('76700000', 10)
 
 
 def test_parse_subclass_with_fractional_part():
     value = LccData.parse_sub_class('767.9')
-    assert value == int('76790000', 36)
+    assert value == int('76790000', 10)
 
 
 def test_parse_without_range():
