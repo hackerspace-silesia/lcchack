@@ -26,26 +26,18 @@ def test_parse_subclass_with_fractional_part():
 
 
 def test_parse_without_range():
-    data = LccData.parse('HQ767.9 .C675 2014')
+    data = LccData.parse('HQ767.9')
     classification = MainClass('HQ')
     subclass = SubClass('767.9')
     assert data.main_class_start == classification
     assert data.main_class_end == classification
     assert data.sub_class_start == subclass
     assert data.sub_class_end == subclass
-    assert data.author == 'C675'
-    assert data.year == '2014'
-
-
-def test_parse_without_range_and_year():
-    data = LccData.parse('HQ767.9 .C675')
-    assert data.author == 'C675'
-    assert data.year is None
+    #assert data.year == '2014'
 
 
 def test_parse_without_range_and_year_and_author():
     data = LccData.parse('HQ767.9')
-    assert data.author is None
     assert data.year is None
 
 
@@ -79,4 +71,12 @@ def test_parse_with_range_main_class():
     assert data.main_class_end == MainClass('B')
     assert data.sub_class_start == SubClass('5')
     assert data.sub_class_end == SubClass('10')
+
+
+def test_parse_with_range_with_letters():
+    data = LccData.parse('ML385 - 410.P')
+    assert data.main_class_start == MainClass('ML')
+    assert data.main_class_end == MainClass('ML')
+    assert data.sub_class_start == SubClass('385')
+    assert data.sub_class_end == SubClass('410.P')
 

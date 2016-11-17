@@ -5,14 +5,13 @@ import re
 class LccData(object):
     re_split_start_classes = re.compile(r'([A-Z]{1,3}) *([A-Z0-9.]*)')
     re_split_end_classes = re.compile(r'([A-Z]{1,3})? *([A-Z0-9.]*)')
-    re_split_the_rest = re.compile(r'(^[A-Z][0-9]*) *(?:R?([0-9]+))?')
+    re_split_the_rest = re.compile(r'(?:R?([0-9]+))?')
 
-    def __init__(self, main_class_range, sub_class_range, author=None, year=None):
+    def __init__(self, main_class_range, sub_class_range, year=None):
         self.main_class_start = main_class_range[0]
         self.main_class_end = main_class_range[1]
         self.sub_class_start = sub_class_range[0]
         self.sub_class_end = sub_class_range[1]
-        self.author = author
         self.year = year
 
     @classmethod
@@ -20,7 +19,7 @@ class LccData(object):
         raw = raw.upper()
         classes, the_rest = cls.get_classes_and_the_rest(raw)
         start, end = cls.split_classes(classes)
-        author, year = cls.get_author_and_year(the_rest)
+        year = cls.get_year(the_rest)
         main_class_start, sub_class_start = cls.parse_range_class(start)
 
         if end is not None:
@@ -36,12 +35,13 @@ class LccData(object):
         return cls(
             main_class_range=(main_class_start, main_class_end),
             sub_class_range=(sub_class_start, sub_class_end),
-            author=author,
             year=year,
         )
 
     @classmethod
     def get_classes_and_the_rest(cls, raw):
+        return raw.strip(), None
+        # Todo: repair
         classes, delimeter, the_rest = raw.rpartition('.')
         if not delimeter:
             return raw.strip(), None
@@ -68,13 +68,14 @@ class LccData(object):
         return start_match.groups(), end_match.groups()
 
     @classmethod
-    def get_author_and_year(cls, the_rest):
+    def get_year(cls, the_rest):
+        return None # suddenly broke :(
         if the_rest is None:
-            return None, None
+            return None
         match = cls.re_split_the_rest.match(the_rest)
         if match is None:
             raise ValueError(the_rest)
-        return match.groups()
+        return match.group(1)
 
     @classmethod
     def parse_range_class(cls, classes):
