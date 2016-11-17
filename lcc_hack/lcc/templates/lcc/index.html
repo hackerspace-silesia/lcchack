@@ -1,0 +1,7 @@
+<form action='/search/' method='GET'> <input name='lcc' value='{{lcc_query}}' /> <button>szukaj</button> </form> <br/>
+<form action='/add_lcc/' method='POST'> <input name='lcc' /> <input name='regal' /> <button>dodaj</button> </form> <br/>
+<ul>
+    {% for lcc in lcc_list %}
+    <li>{{lcc.value}} <strong> REGAŁ:  {{lcc.regal}}</strong></li>
+    {% endfor %}
+</ul>
